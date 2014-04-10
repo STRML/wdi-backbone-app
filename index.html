@@ -1,0 +1,75 @@
+<html>
+  <head>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      .repos {
+        border: 1px solid black;
+      }
+      .repo {
+        display: inline-block;
+        width: 400px;
+        overflow: hidden;
+        padding: 10px;
+      }
+      .repo .title, .fullRepo .title {
+        font-weight: bold;
+      }
+      .fullRepo {
+        margin-top: 20px;
+      }
+      pre {
+        white-space: pre-wrap;
+      }
+    </style>
+
+    <!-- Deps -->
+    <script src="lib/jquery.js"></script>
+    <script src="lib/underscore.js"></script>
+    <script src="lib/backbone.js"></script>
+
+    <!-- App -->
+    <script src="app.js"></script>
+
+    <!-- Templates -->
+    <script type="underscore/template" id="mainViewTemplate">
+      <div class="repos">
+        <% _.each(repos, function(repo) { %>
+          <div class="repo">
+            <div class="title">
+              <a href="#repos/<%= repo.id %>"><%= repo.get('name') %></a>
+            </div>
+            <div class="object">Object:
+              <pre><code><%= repo.toString({short: true}) %></code></pre>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    </script>
+
+    <script type="underscore/template" id="repoViewTemplate">
+      <a href="#repos">Back...</a>
+      <div class="fullRepo">
+        <div class="title"><%= repo.get('name') %></div>
+        <div class="object">Object:
+          <pre><code><%= repo %></code></pre>
+        </div>
+      </div>
+    </script>
+
+    <!-- App protos -->
+    <script src="app/models/Repo.js"></script>
+    <script src="app/collections/RepoCollection.js"></script>
+    <script src="app/views/MainView.js"></script>
+    <script src="app/views/RepoView.js"></script>
+    <script src="app/routers/MainRouter.js"></script>
+
+
+
+  </head>
+  <body>
+    <h2>GitHub Repo App</h2>
+    <div id="container"></div>
+  </body>
+</html>
